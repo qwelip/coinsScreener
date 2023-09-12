@@ -1,12 +1,11 @@
-import React from 'react';
-import Coins from './conponents/coins';
+import ChartsPage from './pages/charts-page'
 
 function App() {
   return (
-    <div className="App">
-      <Coins/>
+    <div className='App'>
+      <ChartsPage />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

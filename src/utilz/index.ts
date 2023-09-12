@@ -2,7 +2,7 @@ const makeStrToNumbers = (val: string[]): number[] => {
   return val.map(i => Number(i))
 }
 
-export const makeStrArrayToNumbersArray = (val: string[][]): number[][] => {
+const makeStrArrayToNumbersArray = (val: string[][]): number[][] => {
   return val.map(i => makeStrToNumbers(i))
 }
 
