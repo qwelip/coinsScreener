@@ -1,7 +1,7 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
 import { ICoinCandlesStat } from '../types'
-import { getOHLCdata } from '../utilz'
+import { getOHLCdata } from '../utils'
 
 interface IProps {
   item: ICoinCandlesStat
@@ -10,7 +10,6 @@ interface IProps {
 const CandleChart: React.FC<IProps> = ({ item }) => {
   return (
     <Chart
-      key={item.result.symbol}
       width='300'
       type='candlestick'
       options={{
