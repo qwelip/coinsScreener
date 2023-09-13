@@ -11,3 +11,8 @@ interface IResult {
   category: string
   list: string[][]
 }
+
+export interface IAppContext {
+  isLoading: boolean
+  candlesData: ICoinCandlesStat[] | undefined
+}

@@ -4,7 +4,7 @@ import { ICoinCandlesStat } from '../types'
 import axios from 'axios'
 import { getAxiosConfig } from '../api'
 
-export const useCandlesData = ()  => {
+export const useCandlesData = (): [boolean, ICoinCandlesStat[] | undefined]  => {
   const date = new Date()
   const category = 'linear'
   const interval = '240'
@@ -26,5 +26,5 @@ export const useCandlesData = ()  => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return [isLoading, candlesData] as const
+  return [isLoading, candlesData]
 }
