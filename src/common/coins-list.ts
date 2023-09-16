@@ -1,4 +1,10 @@
-// export const coinsList = ['LPTUSDT']
+// export const coinsList = [
+//   "HIFIUSDT",
+//   "GPTUSDT",
+//   "FLMUSDT",
+//   "AKROUSDT",
+//   "SFPUSDT",
+// ]
 
 export const coinsList = [
   "HIFIUSDT",

@@ -4,6 +4,7 @@ export interface ICoinCandlesStat {
   result: IResult
   time: number
   retExtInfo: Record<any, any>
+  custom?: ICustom
 }
 
 interface IResult {
@@ -15,4 +16,13 @@ interface IResult {
 export interface IAppContext {
   isLoading: boolean
   candlesData: ICoinCandlesStat[] | undefined
+}
+
+interface ICustom {
+  differencePercent: number
+}
+
+export enum SortDirection {
+  acs = 'ASC',
+  desc = 'DESC'
 }
