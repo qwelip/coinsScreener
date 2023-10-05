@@ -2,7 +2,9 @@ import React, { useContext } from 'react'
 import NorthIcon from '@mui/icons-material/North'
 import SouthIcon from '@mui/icons-material/South'
 import {
-  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
   Paper,
   Stack,
   Switch,
@@ -19,10 +21,12 @@ interface IProps {
   candlesToCheck: number
   sortDirection: SortDirection
   minProcToShow: number
+  isFirstCandleCheck: boolean
   handleFilter: () => void
   handleCandlesToCheck: (val: number) => void
   handleSortDirection: (val: SortDirection) => void
   setMinProcToShow: (val: number) => void
+  setIsFirstCandleCheck: (val: boolean) => void
 }
 
 const Filter: React.FC<IProps> = ({
@@ -30,10 +34,12 @@ const Filter: React.FC<IProps> = ({
   candlesToCheck,
   sortDirection,
   minProcToShow,
+  isFirstCandleCheck,
   handleFilter,
   handleCandlesToCheck,
   handleSortDirection,
   setMinProcToShow,
+  setIsFirstCandleCheck,
 }) => {
   const { isLoading } = useContext(AppContext)
 
@@ -57,6 +63,10 @@ const Filter: React.FC<IProps> = ({
     if (!isNaN(val)) {
       setMinProcToShow(val)
     }
+  }
+
+  const handleCheckboxInput = () => {
+    setIsFirstCandleCheck(!isFirstCandleCheck)
   }
 
   if (isLoading) {
@@ -83,6 +93,17 @@ const Filter: React.FC<IProps> = ({
           value={minProcToShow}
           onChange={handleProcentInput}
         />
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox
+                value={isFirstCandleCheck}
+                onClick={handleCheckboxInput}
+              />
+            }
+            label='Учитывать первую свечу'
+          />
+        </FormGroup>
         <ToggleButtonGroup
           value={sortDirection}
           exclusive

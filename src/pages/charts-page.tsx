@@ -12,12 +12,13 @@ const ChartsPage = () => {
   let resCandlesData: ICoinCandlesStat[] | undefined
   const { isLoading, candlesData } = useContext(AppContext)
 
-  const [isFilter, setIsFilter] = useState(false)
-  const [candlesToCheck, setCandlesToCheck] = useState(4)
-  const [minProcToShow, setMinProcToShow] = useState(10)
+  const [isFilter, setIsFilter] = useState(true)
+  const [candlesToCheck, setCandlesToCheck] = useState(7)
+  const [minProcToShow, setMinProcToShow] = useState(15)
   const [sortDirection, setSortDirection] = useState<SortDirection>(
     SortDirection.desc
   )
+  const [isFirstCandleCheck, setIsFirstCandleCheck] = useState(true)
 
   const handleFilter = () => {
     setIsFilter(!isFilter)
@@ -38,10 +39,11 @@ const ChartsPage = () => {
     const withPercent = getSortedPercentGrowCandlesStat(
       candlesData!,
       candlesToCheck,
-      sortDirection
+      sortDirection,
+      isFirstCandleCheck
     )
     resCandlesData = withPercent.filter(
-      (i) => i.custom!.differencePercent >= minProcToShow
+      (i) => Math.abs(i.custom!.differencePercent) >= minProcToShow
     )
   }
 
@@ -65,13 +67,14 @@ const ChartsPage = () => {
         candlesToCheck={candlesToCheck}
         sortDirection={sortDirection}
         minProcToShow={minProcToShow}
+        isFirstCandleCheck={isFirstCandleCheck}
         handleFilter={handleFilter}
         handleCandlesToCheck={handleCandlesToCheck}
         handleSortDirection={handleSortDirection}
         setMinProcToShow={setMinProcToShow}
+        setIsFirstCandleCheck={setIsFirstCandleCheck}
       />
-      {!isFilter && <ChartsList candlesList={resCandlesData!} />}
-      {isFilter && <ChartsList candlesList={resCandlesData!} />}
+      <ChartsList candlesList={resCandlesData!} />
     </>
   )
 }
