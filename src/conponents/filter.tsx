@@ -41,7 +41,7 @@ const Filter: React.FC<IProps> = ({
   setMinProcToShow,
   setIsFirstCandleCheck,
 }) => {
-  const { isLoading } = useContext(AppContext)
+  const { isLoading, interval } = useContext(AppContext)
 
   const handleSort = (_: any, newSortVal: SortDirection) => {
     handleSortDirection(newSortVal)
@@ -69,14 +69,13 @@ const Filter: React.FC<IProps> = ({
     setIsFirstCandleCheck(!isFirstCandleCheck)
   }
 
-  if (isLoading) {
+  if (isLoading || !interval) {
     return null
   }
 
   return (
     <Paper style={{ padding: 20, marginBottom: 20 }} elevation={1}>
       <Stack justifyContent={'center'} direction={'row'} spacing={10}>
-        <Typography style={{ padding: '6px 0' }}>Filter - % change</Typography>
         <TextField
           id='Candles'
           size='small'

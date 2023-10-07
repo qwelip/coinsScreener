@@ -1,16 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useContext } from 'react'
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, Button } from '@mui/material'
 import ChartsList from '../conponents/charts-list'
 import CircularProgress from '@mui/material/CircularProgress'
 import { AppContext } from '../store/context'
 import Filter from '../conponents/filter'
-import { ICoinCandlesStat, SortDirection } from '../types'
+import { ICoinCandlesStat, Interval, SortDirection } from '../types'
 import { getSortedPercentGrowCandlesStat } from '../utils/utils'
 
 const ChartsPage = () => {
   let resCandlesData: ICoinCandlesStat[] | undefined
-  const { isLoading, candlesData } = useContext(AppContext)
+  const styles = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  }
+  const { isLoading, candlesData, interval, setInterval } =
+    useContext(AppContext)
 
   const [isFilter, setIsFilter] = useState(true)
   const [candlesToCheck, setCandlesToCheck] = useState(7)
@@ -32,6 +39,11 @@ const ChartsPage = () => {
     setSortDirection(val)
   }
 
+  const changeInterval = (val: Interval) => {
+    console.log(val)
+    setInterval(val)
+  }
+
   if (!isFilter && !isLoading) {
     resCandlesData = candlesData
   }
@@ -47,20 +59,63 @@ const ChartsPage = () => {
     )
   }
 
+  useEffect(() => {
+    if (!interval) return
+
+    switch (interval) {
+      case '60': {
+        setCandlesToCheck(9)
+        setMinProcToShow(5)
+        break
+      }
+      case '240': {
+        setCandlesToCheck(9)
+        setMinProcToShow(10)
+        break
+      }
+      case 'D': {
+        setCandlesToCheck(9)
+        setMinProcToShow(10)
+        break
+      }
+      default:
+        break
+    }
+  }, [interval])
+
   return (
     <>
-      <Box
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 20,
-        }}
-      >
+      <Box style={styles}>
         <Typography style={{ marginRight: 30 }} align='center' variant='h3'>
           Candles charts
         </Typography>
-        {isLoading && <CircularProgress />}
+        {isLoading && interval && <CircularProgress />}
+      </Box>
+      <Box style={styles}>
+        <Button
+          disabled={isLoading}
+          variant={interval === '60' ? 'contained' : 'text'}
+          size='small'
+          onClick={() => changeInterval('60')}
+        >
+          1 час
+        </Button>
+        <Button
+          disabled={isLoading}
+          variant={interval === '240' ? 'contained' : 'text'}
+          size='small'
+          onClick={() => changeInterval('240')}
+        >
+          4 часа
+        </Button>
+        <Button
+          disabled={isLoading}
+          variant={interval === 'D' ? 'contained' : 'text'}
+          size='small'
+          onClick={() => changeInterval('D')}
+        >
+          24 часа
+        </Button>
       </Box>
       <Filter
         isFilter={isFilter}

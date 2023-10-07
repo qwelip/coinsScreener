@@ -28,7 +28,13 @@ const ChartsList: React.FC<IProps> = ({ candlesList }) => {
       {candlesList.map((item) => {
         return (
           <Paper key={item.result.symbol} elevation={5} style={{ padding: 5 }}>
-            <Box style={{ display: 'flex' }}>
+            <Box
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Link
                 to={`https://www.bybit.com/trade/usdt/${item.result.symbol}`}
                 target='_blank'
@@ -39,7 +45,19 @@ const ChartsList: React.FC<IProps> = ({ candlesList }) => {
                   </Typography>
                 </Button>
               </Link>
-              <Typography>{item.custom?.differencePercent}</Typography>
+              <Typography
+                style={{
+                  paddingRight: 10,
+                  fontWeight: 400,
+                  color:
+                    item.custom?.differencePercent &&
+                    item.custom?.differencePercent > 0
+                      ? 'green'
+                      : 'red',
+                }}
+              >
+                {item.custom?.differencePercent}
+              </Typography>
             </Box>
             <CandleChart item={item} />
           </Paper>
