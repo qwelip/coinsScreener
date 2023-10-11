@@ -14,10 +14,10 @@ export const useCandlesData = (): [boolean | undefined, ICoinCandlesStat[] | und
   const start = date.setDate(date.getDate() - startParam)
   const end = Date.now()
   const candlesDataRef = useRef<ICoinCandlesStat[] | undefined>([])
-  console.log('interval',interval)
+
   function getStartParam(): number {
     switch(interval) {
-      case '60': return 2
+      case '60': return 8
       case '240': return 15
       case 'D': return 15
       default: return 2

@@ -63,6 +63,11 @@ const ChartsPage = () => {
     if (!interval) return
 
     switch (interval) {
+      case '30': {
+        setCandlesToCheck(9)
+        setMinProcToShow(5)
+        break
+      }
       case '60': {
         setCandlesToCheck(9)
         setMinProcToShow(5)
@@ -92,6 +97,14 @@ const ChartsPage = () => {
         {isLoading && interval && <CircularProgress />}
       </Box>
       <Box style={styles}>
+        <Button
+          disabled={isLoading}
+          variant={interval === '30' ? 'contained' : 'text'}
+          size='small'
+          onClick={() => changeInterval('30')}
+        >
+          30 мин
+        </Button>
         <Button
           disabled={isLoading}
           variant={interval === '60' ? 'contained' : 'text'}
