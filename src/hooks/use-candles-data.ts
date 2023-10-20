@@ -18,8 +18,8 @@ export const useCandlesData = (): [boolean | undefined, ICoinCandlesStat[] | und
   function getStartParam(): number {
     switch(interval) {
       case '60': return 8
-      case '240': return 15
-      case 'D': return 15
+      case '240': return 25
+      case 'D': return 25
       default: return 2
     }
   }

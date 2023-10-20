@@ -40,7 +40,6 @@ const ChartsPage = () => {
   }
 
   const changeInterval = (val: Interval) => {
-    console.log(val)
     setInterval(val)
   }
 
