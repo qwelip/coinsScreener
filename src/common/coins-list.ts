@@ -32,7 +32,7 @@ export const coinsList = [
   "HNTUSDT",
   "INJUSDT",
   "MKRUSDT",
-  "TOMOUSDT",
+  // "TOMOUSDT", исключен из листинга
   "FITFIUSDT",
   "PAXGUSDT",
   "STORJUSDT",
