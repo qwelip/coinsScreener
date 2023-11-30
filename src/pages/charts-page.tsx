@@ -9,7 +9,7 @@ import { ICoinCandlesStat, Interval, SortDirection } from '../types'
 import { getSortedPercentGrowCandlesStat } from '../utils/utils'
 
 const ChartsPage = () => {
-  let resCandlesData: ICoinCandlesStat[] | undefined
+  let resCandlesData: ICoinCandlesStat[] | undefined = []
   const styles = {
     display: 'flex',
     alignItems: 'center',
@@ -42,11 +42,10 @@ const ChartsPage = () => {
   const changeInterval = (val: Interval) => {
     setInterval(val)
   }
-
   if (!isFilter && !isLoading) {
     resCandlesData = candlesData
   }
-  if (isFilter && !isLoading) {
+  if (isFilter && !isLoading && candlesData && candlesData.length > 0) {
     const withPercent = getSortedPercentGrowCandlesStat(
       candlesData!,
       candlesToCheck,
@@ -62,6 +61,11 @@ const ChartsPage = () => {
     if (!interval) return
 
     switch (interval) {
+      case '15': {
+        setCandlesToCheck(9)
+        setMinProcToShow(3)
+        break
+      }
       case '30': {
         setCandlesToCheck(9)
         setMinProcToShow(5)
@@ -96,6 +100,14 @@ const ChartsPage = () => {
         {isLoading && interval && <CircularProgress />}
       </Box>
       <Box style={styles}>
+        <Button
+          disabled={isLoading}
+          variant={interval === '15' ? 'contained' : 'text'}
+          size='small'
+          onClick={() => changeInterval('15')}
+        >
+          15 мин
+        </Button>
         <Button
           disabled={isLoading}
           variant={interval === '30' ? 'contained' : 'text'}
