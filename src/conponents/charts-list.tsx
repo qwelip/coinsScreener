@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ICoinCandlesStat } from '../types'
+import { ICoinCandlesStat } from '../types/models'
 import CandleChart from './candle-chart'
 import { Box, Button, Paper, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'

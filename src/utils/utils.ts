@@ -1,4 +1,4 @@
-import { ICoinCandlesStat, SortDirection } from "../types"
+import { ICoinCandlesStat, SortDirection } from "../types/models"
 
 const makeStrToNumbers = (val: string[]): number[] => {
   return val.map(i => Number(i))

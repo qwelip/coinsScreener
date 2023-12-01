@@ -13,7 +13,7 @@ import {
   ToggleButtonGroup,
   Typography,
 } from '@mui/material'
-import { SortDirection } from '../types'
+import { SortDirection } from '../types/models'
 import { AppContext } from '../store/context'
 
 interface IProps {

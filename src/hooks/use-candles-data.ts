@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef} from 'react'
 import { coinsList } from '../common/coins-list'
-import { ICoinCandlesStat, Interval } from '../types'
+import { ICoinCandlesStat, Interval } from '../types/models'
 import axios from 'axios'
 import { getAxiosConfig } from '../api'
 

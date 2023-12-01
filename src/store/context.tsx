@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import { IAppContext } from '../types'
+import { IAppContext } from '../types/models'
 import { useCandlesData } from '../hooks/use-candles-data'
 
 export const AppContext = createContext<IAppContext>({} as IAppContext)

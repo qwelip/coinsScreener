@@ -5,7 +5,7 @@ import ChartsList from '../conponents/charts-list'
 import CircularProgress from '@mui/material/CircularProgress'
 import { AppContext } from '../store/context'
 import Filter from '../conponents/filter'
-import { ICoinCandlesStat, Interval, SortDirection } from '../types'
+import { ICoinCandlesStat, Interval, SortDirection } from '../types/models'
 import { getSortedPercentGrowCandlesStat } from '../utils/utils'
 
 const ChartsPage = () => {
