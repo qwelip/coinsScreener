@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
-import { Box, Typography, Button } from '@mui/material'
+import { Box, Typography, Button, Stack } from '@mui/material'
 import ChartsList from '../conponents/charts-list'
-import CircularProgress from '@mui/material/CircularProgress'
 import { AppContext } from '../store/context'
 import Filter from '../conponents/filter'
 import { ICoinCandlesStat, Interval, SortDirection } from '../types/models'
-import { getSortedPercentGrowCandlesStat } from '../utils/utils'
+import {
+  getIntervalTitle,
+  getSortedPercentGrowCandlesStat,
+} from '../utils/utils'
+import { timeIntervals } from '../common/common-data'
+import LoadingBackdrop from '../common/loading-backdrop'
 
 const ChartsPage = () => {
   let resCandlesData: ICoinCandlesStat[] | undefined = []
@@ -97,50 +101,22 @@ const ChartsPage = () => {
         <Typography style={{ marginRight: 30 }} align='center' variant='h3'>
           Candles charts
         </Typography>
-        {isLoading && interval && <CircularProgress />}
+        {isLoading && interval && <LoadingBackdrop />}
       </Box>
-      <Box style={styles}>
-        <Button
-          disabled={isLoading}
-          variant={interval === '15' ? 'contained' : 'text'}
-          size='small'
-          onClick={() => changeInterval('15')}
-        >
-          15 мин
-        </Button>
-        <Button
-          disabled={isLoading}
-          variant={interval === '30' ? 'contained' : 'text'}
-          size='small'
-          onClick={() => changeInterval('30')}
-        >
-          30 мин
-        </Button>
-        <Button
-          disabled={isLoading}
-          variant={interval === '60' ? 'contained' : 'text'}
-          size='small'
-          onClick={() => changeInterval('60')}
-        >
-          1 час
-        </Button>
-        <Button
-          disabled={isLoading}
-          variant={interval === '240' ? 'contained' : 'text'}
-          size='small'
-          onClick={() => changeInterval('240')}
-        >
-          4 часа
-        </Button>
-        <Button
-          disabled={isLoading}
-          variant={interval === 'D' ? 'contained' : 'text'}
-          size='small'
-          onClick={() => changeInterval('D')}
-        >
-          24 часа
-        </Button>
-      </Box>
+      <Stack spacing={2} direction='row' justifyContent={'center'}>
+        {timeIntervals.map((item) => {
+          return (
+            <Button
+              disabled={isLoading}
+              variant={interval === item ? 'contained' : 'text'}
+              size='small'
+              onClick={() => changeInterval(item)}
+            >
+              {getIntervalTitle(item)}
+            </Button>
+          )
+        })}
+      </Stack>
       <Filter
         isFilter={isFilter}
         candlesToCheck={candlesToCheck}
