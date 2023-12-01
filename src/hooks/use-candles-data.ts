@@ -34,6 +34,8 @@ export const useCandlesData = (): [boolean | undefined, ICoinCandlesStat[] | und
       const filtered = data.filter(i => i.retCode === 0 && i.result.list.length > 0)
       candlesDataRef.current = filtered
       setIsLoading(false)
+    }).catch(() => {
+      throw new Error('Ошибка при получении данных графиков')
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [interval])
