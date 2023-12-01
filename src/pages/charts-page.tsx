@@ -88,26 +88,27 @@ const ChartsPage = () => {
         </Typography>
         {isLoading && interval && <LoadingBackdrop />}
       </Box>
-      <Stack spacing={2} direction='row' justifyContent={'center'}>
-        {timeIntervals.map((item) => {
-          return (
-            <Button
-              disabled={isLoading}
-              variant={interval === item ? 'contained' : 'text'}
-              size='small'
-              onClick={() => changeInterval(item)}
-            >
-              {getIntervalTitle(item)}
-            </Button>
-          )
-        })}
-      </Stack>
       <Filter
         candlesToCheck={candlesToCheck}
         minProcToShow={minProcToShow}
         handleCandlesToCheck={handleCandlesToCheck}
         setMinProcToShow={setMinProcToShow}
-      />
+      >
+        <Stack spacing={2} direction='row' justifyContent={'center'}>
+          {timeIntervals.map((item) => {
+            return (
+              <Button
+                disabled={isLoading}
+                variant={interval === item ? 'contained' : 'text'}
+                size='small'
+                onClick={() => changeInterval(item)}
+              >
+                {getIntervalTitle(item)}
+              </Button>
+            )
+          })}
+        </Stack>
+      </Filter>
       <ChartsList candlesList={resCandlesData!} />
     </>
   )

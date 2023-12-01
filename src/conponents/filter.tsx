@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Paper, Stack, TextField } from '@mui/material'
-import { AppContext } from '../store/context'
 
 interface IProps {
   candlesToCheck: number
   minProcToShow: number
+  children: React.ReactNode
   handleCandlesToCheck: (val: number) => void
   setMinProcToShow: (val: number) => void
 }
@@ -12,10 +12,10 @@ interface IProps {
 const Filter: React.FC<IProps> = ({
   candlesToCheck,
   minProcToShow,
+  children,
   handleCandlesToCheck,
   setMinProcToShow,
 }) => {
-  const { isLoading, interval } = useContext(AppContext)
   const handleCandlesInput: React.ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (event) => {
@@ -34,13 +34,10 @@ const Filter: React.FC<IProps> = ({
     }
   }
 
-  if (isLoading || !interval) {
-    return null
-  }
-
   return (
-    <Paper style={{ padding: 20, marginBottom: 20 }} elevation={1}>
+    <Paper style={{ padding: 20, marginBottom: 20 }} elevation={2}>
       <Stack justifyContent={'center'} direction={'row'} spacing={10}>
+        {children}
         <TextField
           id='Candles'
           size='small'
