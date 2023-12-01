@@ -1,4 +1,4 @@
-import { Box, Container, ThemeProvider, Paper } from '@mui/material'
+import { Container, ThemeProvider, Paper } from '@mui/material'
 import ChartsPage from './pages/charts-page'
 import Context from './store/context'
 import ErrorBoundary from './conponents/error-boundary'

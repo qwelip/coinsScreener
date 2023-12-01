@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
-import { Box, Typography, Button, Stack } from '@mui/material'
+import { Box, Button, Stack } from '@mui/material'
 import ChartsList from '../conponents/charts-list'
 import { AppContext } from '../store/context'
 import Filter from '../conponents/filter'
@@ -23,8 +23,8 @@ const ChartsPage = () => {
   const { isLoading, candlesData, interval, setInterval } =
     useContext(AppContext)
 
-  const [candlesToCheck, setCandlesToCheck] = useState(7)
-  const [minProcToShow, setMinProcToShow] = useState(15)
+  const [candlesToCheck, setCandlesToCheck] = useState(9)
+  const [minProcToShow, setMinProcToShow] = useState(5)
 
   const handleCandlesToCheck = (val: number) => {
     setCandlesToCheck(val)
@@ -48,46 +48,13 @@ const ChartsPage = () => {
 
   useEffect(() => {
     if (!interval) return
-
-    switch (interval) {
-      case '15': {
-        setCandlesToCheck(9)
-        setMinProcToShow(3)
-        break
-      }
-      case '30': {
-        setCandlesToCheck(9)
-        setMinProcToShow(5)
-        break
-      }
-      case '60': {
-        setCandlesToCheck(9)
-        setMinProcToShow(5)
-        break
-      }
-      case '240': {
-        setCandlesToCheck(9)
-        setMinProcToShow(10)
-        break
-      }
-      case 'D': {
-        setCandlesToCheck(9)
-        setMinProcToShow(10)
-        break
-      }
-      default:
-        break
-    }
+    setCandlesToCheck(9)
+    setMinProcToShow(5)
   }, [interval])
 
   return (
     <>
-      <Box style={styles}>
-        <Typography style={{ marginRight: 30 }} align='center' variant='h3'>
-          Candles charts
-        </Typography>
-        {isLoading && interval && <LoadingBackdrop />}
-      </Box>
+      <Box style={styles}>{isLoading && interval && <LoadingBackdrop />}</Box>
       <Filter
         candlesToCheck={candlesToCheck}
         minProcToShow={minProcToShow}

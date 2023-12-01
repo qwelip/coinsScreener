@@ -1,13 +1,19 @@
-import {useState, useEffect, useRef} from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { coinsList } from '../common/coins-list'
-import { ICoinCandlesStat, Interval } from '../types/models'
+import { IAppContext, ICoinCandlesStat, Interval } from '../types/models'
 import axios from 'axios'
 import { getAxiosConfig } from '../api'
 
-export const useCandlesData = (): [boolean | undefined, ICoinCandlesStat[] | undefined, Interval | undefined, React.Dispatch<React.SetStateAction<Interval | undefined>>]  => {
+export const useCandlesData = (): IAppContext => {
   const [isLoading, setIsLoading] = useState<boolean | undefined>()
   const [interval, setInterval] = useState<Interval | undefined>()
-  
+  const [renderFlag, setRenderFlag] = useState(true)
+
+  const handleIntervalChange = (val: Interval) => {
+    setRenderFlag((prev) => !prev)
+    setInterval(val)
+  }
+
   const date = new Date()
   const category = 'linear'
   const startParam = getStartParam()
@@ -16,29 +22,48 @@ export const useCandlesData = (): [boolean | undefined, ICoinCandlesStat[] | und
   const candlesDataRef = useRef<ICoinCandlesStat[] | undefined>([])
 
   function getStartParam(): number {
-    switch(interval) {
-      case '15': return 0.2
-      case '60': return 2
-      case '240': return 25
-      case 'D': return 50
-      default: return 2
+    switch (interval) {
+      case '15':
+        return 0.2
+      case '60':
+        return 2
+      case '240':
+        return 25
+      case 'D':
+        return 50
+      default:
+        return 2
     }
   }
 
   useEffect(() => {
-    if (!interval) return 
+    if (!interval) return
     setIsLoading(true)
-    const reqArray = coinsList.map(coinName => axios(getAxiosConfig(category, coinName, interval, start, end)))
-    Promise.all(reqArray).then(response => {
-      const data = response.map(i => i.data) as ICoinCandlesStat[]
-      const filtered = data.filter(i => i.retCode === 0 && i.result.list.length > 0)
-      candlesDataRef.current = filtered
-      setIsLoading(false)
-    }).catch(() => {
-      throw new Error('Ошибка при получении данных графиков')
-    })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [interval])
+    console.log('interval', interval)
+    const reqArray = coinsList.map((coinName) =>
+      axios(getAxiosConfig(category, coinName, interval, start, end))
+    )
+    Promise.all(reqArray)
+      .then((response) => {
+        const data = response.map((i) => i.data) as ICoinCandlesStat[]
+        const filtered = data.filter(
+          (i) => i.retCode === 0 && i.result.list.length > 0
+        )
+        candlesDataRef.current = filtered
+      })
+      .catch(() => {
+        throw new Error('Ошибка при получении данных графиков')
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [interval, renderFlag])
 
-  return [isLoading, candlesDataRef.current, interval, setInterval]
+  return {
+    isLoading,
+    candlesData: candlesDataRef.current,
+    interval,
+    setInterval: handleIntervalChange,
+  }
 }

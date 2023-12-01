@@ -1,5 +1,5 @@
 export interface ICoinCandlesStat {
-  retCode: number,
+  retCode: number
   retMsg: string
   result: IResult
   time: number
@@ -17,7 +17,7 @@ export interface IAppContext {
   isLoading: boolean | undefined
   candlesData: ICoinCandlesStat[] | undefined
   interval: Interval | undefined
-  setInterval: React.Dispatch<React.SetStateAction<Interval | undefined>>
+  setInterval: (val: Interval) => void
 }
 
 interface ICustom {
@@ -26,7 +26,7 @@ interface ICustom {
 
 export enum SortDirection {
   acs = 'ASC',
-  desc = 'DESC'
+  desc = 'DESC',
 }
 
 export type Interval = '15' | '30' | '60' | '240' | 'D'
