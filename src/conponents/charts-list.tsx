@@ -27,7 +27,7 @@ const ChartsList: React.FC<IProps> = ({ candlesList }) => {
     >
       {candlesList.map((item) => {
         return (
-          <Paper key={item.result.symbol} elevation={5} style={{ padding: 5 }}>
+          <Paper key={item.result.symbol} elevation={2} style={{ padding: 5 }}>
             <Box
               style={{
                 display: 'flex',
