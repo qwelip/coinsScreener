@@ -17,8 +17,8 @@ export const getOHLCdata = (val: string[][]): number[][] => {
 export const getSortedPercentGrowCandlesStat = (
   data: ICoinCandlesStat[],
   candlesToCheck: number,
-  sortingDirection: SortDirection,
-  includeFirstCandle: boolean
+  sortingDirection: SortDirection = SortDirection.desc,
+  includeFirstCandle: boolean = true
 ): ICoinCandlesStat[] => {
   const filtered = data.filter((item) => item.result.list.length > 10)
   const res = filtered.map((item) => {

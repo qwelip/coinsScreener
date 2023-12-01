@@ -4,7 +4,7 @@ import { Box, Typography, Button, Stack } from '@mui/material'
 import ChartsList from '../conponents/charts-list'
 import { AppContext } from '../store/context'
 import Filter from '../conponents/filter'
-import { ICoinCandlesStat, Interval, SortDirection } from '../types/models'
+import { ICoinCandlesStat, Interval } from '../types/models'
 import {
   getIntervalTitle,
   getSortedPercentGrowCandlesStat,
@@ -23,38 +23,23 @@ const ChartsPage = () => {
   const { isLoading, candlesData, interval, setInterval } =
     useContext(AppContext)
 
-  const [isFilter, setIsFilter] = useState(true)
   const [candlesToCheck, setCandlesToCheck] = useState(7)
   const [minProcToShow, setMinProcToShow] = useState(15)
-  const [sortDirection, setSortDirection] = useState<SortDirection>(
-    SortDirection.desc
-  )
-  const [isFirstCandleCheck, setIsFirstCandleCheck] = useState(true)
-
-  const handleFilter = () => {
-    setIsFilter(!isFilter)
-  }
 
   const handleCandlesToCheck = (val: number) => {
     setCandlesToCheck(val)
   }
 
-  const handleSortDirection = (val: SortDirection) => {
-    setSortDirection(val)
-  }
-
   const changeInterval = (val: Interval) => {
     setInterval(val)
   }
-  if (!isFilter && !isLoading) {
+  if (!isLoading) {
     resCandlesData = candlesData
   }
-  if (isFilter && !isLoading && candlesData && candlesData.length > 0) {
+  if (!isLoading && candlesData && candlesData.length > 0) {
     const withPercent = getSortedPercentGrowCandlesStat(
-      candlesData!,
-      candlesToCheck,
-      sortDirection,
-      isFirstCandleCheck
+      candlesData,
+      candlesToCheck
     )
     resCandlesData = withPercent.filter(
       (i) => Math.abs(i.custom!.differencePercent) >= minProcToShow
@@ -118,16 +103,10 @@ const ChartsPage = () => {
         })}
       </Stack>
       <Filter
-        isFilter={isFilter}
         candlesToCheck={candlesToCheck}
-        sortDirection={sortDirection}
         minProcToShow={minProcToShow}
-        isFirstCandleCheck={isFirstCandleCheck}
-        handleFilter={handleFilter}
         handleCandlesToCheck={handleCandlesToCheck}
-        handleSortDirection={handleSortDirection}
         setMinProcToShow={setMinProcToShow}
-        setIsFirstCandleCheck={setIsFirstCandleCheck}
       />
       <ChartsList candlesList={resCandlesData!} />
     </>
