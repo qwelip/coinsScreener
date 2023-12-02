@@ -68,3 +68,20 @@ export const getIntervalTitle = (val: Interval): string => {
     }
   }
 }
+
+export function getStartParam(interval: Interval | undefined): number {
+  switch (interval) {
+    case '15':
+      return 1
+    case '30':
+      return 1
+    case '60':
+      return 1
+    case '240':
+      return 3
+    case 'D':
+      return 5
+    default:
+      return 2
+  }
+}

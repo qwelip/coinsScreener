@@ -3,6 +3,7 @@ import { coinsList } from '../common/coins-list'
 import { IAppContext, ICoinCandlesStat, Interval } from '../types/models'
 import axios from 'axios'
 import { getAxiosConfig } from '../api'
+import { getStartParam } from '../utils/utils'
 
 export const useCandlesData = (): IAppContext => {
   const [isLoading, setIsLoading] = useState<boolean | undefined>()
@@ -16,30 +17,14 @@ export const useCandlesData = (): IAppContext => {
 
   const date = new Date()
   const category = 'linear'
-  const startParam = getStartParam()
+  const startParam = getStartParam(interval)
   const start = date.setDate(date.getDate() - startParam)
   const end = Date.now()
   const candlesDataRef = useRef<ICoinCandlesStat[] | undefined>([])
 
-  function getStartParam(): number {
-    switch (interval) {
-      case '15':
-        return 0.2
-      case '60':
-        return 2
-      case '240':
-        return 25
-      case 'D':
-        return 50
-      default:
-        return 2
-    }
-  }
-
   useEffect(() => {
     if (!interval) return
     setIsLoading(true)
-    console.log('interval', interval)
     const reqArray = coinsList.map((coinName) =>
       axios(getAxiosConfig(category, coinName, interval, start, end))
     )
