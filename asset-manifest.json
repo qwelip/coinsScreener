@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/coinsScreener/static/css/main.befd10b8.css",
-    "main.js": "/coinsScreener/static/js/main.fe368c64.js",
+    "main.js": "/coinsScreener/static/js/main.6fead3dd.js",
     "index.html": "/coinsScreener/index.html",
     "main.befd10b8.css.map": "/coinsScreener/static/css/main.befd10b8.css.map",
-    "main.fe368c64.js.map": "/coinsScreener/static/js/main.fe368c64.js.map"
+    "main.6fead3dd.js.map": "/coinsScreener/static/js/main.6fead3dd.js.map"
   },
   "entrypoints": [
     "static/css/main.befd10b8.css",
-    "static/js/main.fe368c64.js"
+    "static/js/main.6fead3dd.js"
   ]
 }
