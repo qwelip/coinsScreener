@@ -41,7 +41,7 @@ const Filter: React.FC<IProps> = ({
         <TextField
           id='Candles'
           size='small'
-          label='Candles to check'
+          label='Candles to check 123'
           variant='outlined'
           value={candlesToCheck}
           onChange={handleCandlesInput}
