@@ -1,4 +1,5 @@
 import React from 'react'
+import './styles.css'
 
 interface IStateProps {
   hasError: boolean
@@ -29,8 +30,16 @@ export default class ErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <>Ошибка</>
+      return (
+        <main className='error-page'>
+          <div className='error-page__wrapper'>
+            <h1 className='error-page__title'>Произошла ошибка</h1>
+            <p className='error-page__text'>
+              Лучшие программисты уже заняты решением этого бага!
+            </p>
+          </div>
+        </main>
+      )
     }
 
     return this.props.children

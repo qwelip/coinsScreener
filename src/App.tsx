@@ -1,7 +1,7 @@
 import { Container, ThemeProvider, Paper } from '@mui/material'
 import ChartsPage from './pages/charts-page'
 import Context from './store/context'
-import ErrorBoundary from './conponents/error-boundary'
+import ErrorBoundary from './conponents/error-boundary/error-boundary'
 import { customTheme } from './common/customTheme'
 import './style.css'
 

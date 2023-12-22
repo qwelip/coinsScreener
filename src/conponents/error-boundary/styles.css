@@ -1,0 +1,19 @@
+.error-page {
+  display: flex;
+  background-color: rgb(18, 18, 18);
+  height: 100vh;
+}
+
+.error-page__wrapper {
+  margin: auto;
+}
+
+.error-page__title {
+  color: white;
+  text-align: center;
+}
+
+.error-page__text {
+  color: white;
+  text-align: center;
+}
