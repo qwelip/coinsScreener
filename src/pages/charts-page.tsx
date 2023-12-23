@@ -41,9 +41,13 @@ const ChartsPage = () => {
       candlesData,
       candlesToCheck
     )
-    resCandlesData = withPercent.filter(
-      (i) => Math.abs(i.custom!.differencePercent) >= minProcToShow
-    )
+    resCandlesData = withPercent.filter((i) => {
+      if (minProcToShow === 0) {
+        return true
+      } else {
+        return Math.abs(i.custom!.differencePercent) >= minProcToShow
+      }
+    })
   }
 
   useEffect(() => {

@@ -22,7 +22,7 @@ export const getSortedPercentGrowCandlesStat = (
 ): ICoinCandlesStat[] => {
   const filtered = data.filter((item) => item.result.list.length > 10)
   const res = filtered.map((item) => {
-    if (candlesToCheck > item.result.list.length) {
+    if (candlesToCheck > item.result.list.length || candlesToCheck === 0) {
       candlesToCheck = item.result.list.length
     }
     const firstCandleToCheck = Number(
