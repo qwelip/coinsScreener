@@ -11,6 +11,7 @@ interface IProps {
 }
 
 const ChartItem: React.FC<IProps> = ({ item, index }) => {
+  const URL = 'https://www.bybit.com/trade/usdt/'
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
@@ -33,10 +34,7 @@ const ChartItem: React.FC<IProps> = ({ item, index }) => {
               justifyContent: 'space-between',
             }}
           >
-            <Link
-              to={`https://www.bybit.com/trade/usdt/${item.result.symbol}`}
-              target='_blank'
-            >
+            <Link to={`${URL}${item.result.symbol}`} target='_blank'>
               <Button>
                 <Typography style={{ paddingLeft: 10 }}>
                   {item.result.symbol}

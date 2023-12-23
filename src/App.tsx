@@ -8,7 +8,6 @@ import './style.css'
 function App() {
   const paperStyles = {
     minHeight: '100vh',
-    padding: 20,
   }
   return (
     <ErrorBoundary>
