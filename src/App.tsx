@@ -7,14 +7,15 @@ import './style.css'
 
 function App() {
   const paperStyles = {
-    minHeight: '100vh',
+    minHeight: 'calc(100vh - 40px)',
+    padding: '20px 0',
   }
   return (
     <ErrorBoundary>
       <Context>
         <ThemeProvider theme={customTheme}>
           <Paper style={paperStyles} square>
-            <Container maxWidth='lg'>
+            <Container style={{ height: '100%' }} maxWidth='lg'>
               <ChartsPage />
             </Container>
           </Paper>

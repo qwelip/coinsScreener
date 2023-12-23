@@ -37,6 +37,7 @@ export const useCandlesData = (): IAppContext => {
         candlesDataRef.current = filtered
       })
       .catch(() => {
+        console.log('Ошибка при получении данных графиков')
         throw new Error('Ошибка при получении данных графиков')
       })
       .finally(() => {

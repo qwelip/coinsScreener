@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
-import { Box, Button, Stack } from '@mui/material'
+import { Button, Stack } from '@mui/material'
 import ChartsList from '../conponents/charts-list'
 import { AppContext } from '../store/context'
 import Filter from '../conponents/filter'
@@ -14,12 +14,6 @@ import LoadingBackdrop from '../common/loading-backdrop'
 
 const ChartsPage = () => {
   let resCandlesData: ICoinCandlesStat[] | undefined = []
-  const styles = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-  }
   const { isLoading, candlesData, interval, setInterval } =
     useContext(AppContext)
 
@@ -58,7 +52,7 @@ const ChartsPage = () => {
 
   return (
     <>
-      <Box style={styles}>{isLoading && interval && <LoadingBackdrop />}</Box>
+      {isLoading && interval && <LoadingBackdrop />}
       <Filter
         candlesToCheck={candlesToCheck}
         minProcToShow={minProcToShow}
