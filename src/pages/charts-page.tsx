@@ -11,7 +11,6 @@ import {
 } from '../utils/utils'
 import { timeIntervals } from '../common/common-data'
 import LoadingBackdrop from '../common/loading-backdrop'
-import ErrorPage from './error-page/error-page'
 
 const ChartsPage = () => {
   let resCandlesData: ICoinCandlesStat[] | undefined = []
@@ -59,8 +58,7 @@ const ChartsPage = () => {
 
   return (
     <>
-      <ErrorPage />
-      {/* <Box style={styles}>{isLoading && interval && <LoadingBackdrop />}</Box>
+      <Box style={styles}>{isLoading && interval && <LoadingBackdrop />}</Box>
       <Filter
         candlesToCheck={candlesToCheck}
         minProcToShow={minProcToShow}
@@ -82,7 +80,7 @@ const ChartsPage = () => {
           })}
         </Stack>
       </Filter>
-      <ChartsList candlesList={resCandlesData!} /> */}
+      <ChartsList candlesList={resCandlesData!} />
     </>
   )
 }
