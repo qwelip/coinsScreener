@@ -13,7 +13,6 @@ const ChartsList: React.FC<IProps> = ({ candlesList }) => {
 
   const styles = {
     marginTop: 140,
-    color: '#979696',
   }
 
   if (isLoading) {
@@ -30,8 +29,10 @@ const ChartsList: React.FC<IProps> = ({ candlesList }) => {
         height: 'calc(100% - 120px)',
       }}
     >
-      {candlesList.length === 0 ? (
-        <Typography style={styles}>Монет не нашлось</Typography>
+      {candlesList.length === 0 && isLoading !== undefined ? (
+        <Typography mt={140} color={'secondary'} style={styles}>
+          Монет не нашлось
+        </Typography>
       ) : (
         candlesList.map((item, index) => {
           return (

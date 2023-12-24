@@ -39,10 +39,10 @@ const Filter: React.FC<IProps> = ({
       <Stack justifyContent={'center'} direction={'row'} spacing={10}>
         {children}
         <TextField
-          id='Candles'
+          id='candles'
           size='small'
           label='Candles to check'
-          variant='outlined'
+          variant='standard'
           value={candlesToCheck}
           onChange={handleCandlesInput}
         />
@@ -50,7 +50,7 @@ const Filter: React.FC<IProps> = ({
           id='outlined-basic'
           size='small'
           label='min procent to show'
-          variant='outlined'
+          variant='standard'
           value={minProcToShow}
           onChange={handleProcentInput}
         />

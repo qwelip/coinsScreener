@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
-import { Button, Stack } from '@mui/material'
+import { Button, Stack, Typography } from '@mui/material'
 import ChartsList from '../conponents/charts-list'
 import { AppContext } from '../store/context'
 import Filter from '../conponents/filter'
@@ -68,7 +68,9 @@ const ChartsPage = () => {
                 size='small'
                 onClick={() => changeInterval(item)}
               >
-                {getIntervalTitle(item)}
+                <Typography noWrap variant='caption'>
+                  {getIntervalTitle(item)}
+                </Typography>
               </Button>
             )
           })}
