@@ -29,4 +29,4 @@ export enum SortDirection {
   desc = 'DESC',
 }
 
-export type Interval = '15' | '30' | '60' | '240' | 'D'
+export type Interval = '5' | '15' | '30' | '60' | '240' | 'D'

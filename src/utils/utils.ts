@@ -54,6 +54,9 @@ export const getSortedPercentGrowCandlesStat = (
 
 export const getIntervalTitle = (val: Interval): string => {
   switch (val) {
+    case '5': {
+      return '5 мин'
+    }
     case '15': {
       return '15 мин'
     }
