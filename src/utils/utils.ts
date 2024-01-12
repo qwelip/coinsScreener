@@ -77,14 +77,16 @@ export const getIntervalTitle = (val: Interval): string => {
 
 export function getStartParam(interval: Interval | undefined): number {
   switch (interval) {
+    case '5':
+      return 5
     case '15':
-      return 1
+      return 5
     case '30':
-      return 1
+      return 5
     case '60':
-      return 1
+      return 5
     case '240':
-      return 3
+      return 5
     case 'D':
       return 5
     default:
