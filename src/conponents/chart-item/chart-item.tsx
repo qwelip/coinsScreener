@@ -4,25 +4,24 @@ import { Link } from 'react-router-dom'
 import CandleChart from '../candle-chart'
 import { ICoinCandlesStat } from '../../types/models'
 import { useInView } from 'react-intersection-observer'
+import StraightIcon from '@mui/icons-material/Straight'
+import SouthIcon from '@mui/icons-material/South'
 
 interface IProps {
   item: ICoinCandlesStat
   index: number
 }
 
-const ChartItem: React.FC<IProps> = ({ item, index }) => {
+const ChartItem: React.FC<IProps> = ({ item }) => {
   const URL = 'https://www.bybit.com/trade/usdt/'
+  const isGrow = item.custom?.differencePercent && item.custom?.differencePercent > 0
   const { ref, inView } = useInView({
     threshold: 0,
     triggerOnce: true,
   })
 
   return (
-    <Paper
-      ref={ref}
-      elevation={2}
-      style={{ padding: 5, width: 300, height: 225 }}
-    >
+    <Paper ref={ref} elevation={2} style={{ padding: 5, width: 300, height: 225 }}>
       {!inView ? (
         <Skeleton variant='rectangular' width={'100%'} height={'100%'} />
       ) : (
@@ -36,23 +35,20 @@ const ChartItem: React.FC<IProps> = ({ item, index }) => {
           >
             <Link to={`${URL}${item.result.symbol}`} target='_blank'>
               <Button>
-                <Typography style={{ paddingLeft: 10 }}>
-                  {item.result.symbol}
-                </Typography>
+                <Typography style={{ paddingLeft: 10 }}>{item.result.symbol}</Typography>
               </Button>
             </Link>
             <Typography
               style={{
+                display: 'flex',
+                alignItems: 'center',
                 paddingRight: 10,
                 fontWeight: 400,
-                color:
-                  item.custom?.differencePercent &&
-                  item.custom?.differencePercent > 0
-                    ? 'green'
-                    : 'red',
+                color: isGrow ? 'green' : 'red',
               }}
             >
-              {item.custom?.differencePercent}
+              {isGrow ? <StraightIcon fontSize='inherit' /> : <SouthIcon fontSize='inherit' />}
+              {`${item.custom?.differencePercent}%`}
             </Typography>
           </Box>
           <CandleChart item={item} />
