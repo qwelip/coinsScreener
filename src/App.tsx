@@ -1,9 +1,9 @@
 import { Container, ThemeProvider, Paper } from '@mui/material'
-import ChartsPage from './pages/charts-page'
-import Context from './store/context'
 import ErrorBoundary from './conponents/error-boundary/error-boundary'
 import { customTheme } from './common/customTheme'
+import DataContextComp from './store/data-context'
 import './style.css'
+import Main from './main'
 
 function App() {
   const paperStyles = {
@@ -12,15 +12,15 @@ function App() {
   }
   return (
     <ErrorBoundary>
-      <Context>
+      <DataContextComp>
         <ThemeProvider theme={customTheme}>
           <Paper style={paperStyles} square>
             <Container style={{ height: '100%' }} maxWidth='lg'>
-              <ChartsPage />
+              <Main />
             </Container>
           </Paper>
         </ThemeProvider>
-      </Context>
+      </DataContextComp>
     </ErrorBoundary>
   )
 }

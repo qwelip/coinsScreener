@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { Button, Stack, Typography } from '@mui/material'
 import ChartsList from '../conponents/charts-list'
-import { AppContext } from '../store/context'
+import { DataContext } from '../store/data-context'
 import Filter from '../conponents/filter'
 import { ICoinCandlesStat, Interval } from '../types/models'
 import { getIntervalTitle, getSortedPercentGrowCandlesStat } from '../utils/utils'
@@ -11,7 +11,7 @@ import LoadingBackdrop from '../common/loading-backdrop'
 
 const ChartsPage = () => {
   let resCandlesData: ICoinCandlesStat[] | undefined = []
-  const { isLoading, candlesData, interval, setInterval } = useContext(AppContext)
+  const { isLoading, candlesData, interval, setInterval } = useContext(DataContext)
 
   const [candlesToCheck, setCandlesToCheck] = useState(9)
   const [minProcToShow, setMinProcToShow] = useState(5)
@@ -56,6 +56,7 @@ const ChartsPage = () => {
           {timeIntervals.map((item) => {
             return (
               <Button
+                key={item}
                 disabled={isLoading}
                 variant={interval === item ? 'contained' : 'text'}
                 size='small'

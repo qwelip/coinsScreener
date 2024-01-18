@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
-import { coinsList } from '../common/coins-list'
-import { IAppContext, ICoinCandlesStat, Interval } from '../types/models'
+import { ICoinCandlesStat, IDataContext, ITicker24Data, Interval } from '../types/models'
 import axios from 'axios'
-import { getAxiosConfig } from '../api'
+import { getCandlesRequestConfig } from '../api/api'
 import { getStartParam } from '../utils/utils'
+import { getStorageTickersData } from '../api/local-storage-api'
 
-export const useCandlesData = (): IAppContext => {
+export const useCandlesData = (): IDataContext => {
+  const rowtickersData = getStorageTickersData()
+
   const [isLoading, setIsLoading] = useState<boolean | undefined>()
   const [interval, setInterval] = useState<Interval | undefined>()
   const [renderFlag, setRenderFlag] = useState(true)
@@ -14,7 +16,6 @@ export const useCandlesData = (): IAppContext => {
     setRenderFlag((prev) => !prev)
     setInterval(val)
   }
-
   const date = new Date()
   const category = 'linear'
   const startParam = getStartParam(interval)
@@ -26,13 +27,17 @@ export const useCandlesData = (): IAppContext => {
   useEffect(() => {
     if (!interval) return
     setIsLoading(true)
+    const data = JSON.parse(rowtickersData || '') as ITicker24Data
+    const coinsList = data.result.list.map((i) => i.symbol)
     const reqArray = coinsList.map((coinName) =>
-      axios(getAxiosConfig(category, coinName, interval, start, end, limit))
+      axios<ICoinCandlesStat>(
+        getCandlesRequestConfig(category, coinName, interval, start, end, limit)
+      )
     )
     Promise.all(reqArray)
       .then((response) => {
-        const data = response.map((i) => i.data) as ICoinCandlesStat[]
-        const filtered = data.filter((i) => i.retCode === 0 && i.result.list.length > 0)
+        const data = response.map((i) => i.data)
+        const filtered = data.filter((i) => i.retMsg === 'OK' && i.result.list.length > 0)
         candlesDataRef.current = filtered
       })
       .catch(() => {

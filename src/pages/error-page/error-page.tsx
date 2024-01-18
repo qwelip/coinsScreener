@@ -21,12 +21,8 @@ const ErrorPage = () => {
         <Typography style={{ color: 'white' }} variant='h2' align='center'>
           Произошла ошибка
         </Typography>
-        <Typography
-          style={{ color: '#6b6b6b', marginTop: 10 }}
-          variant='h6'
-          align='center'
-        >
-          Просто перезагрузите страницу
+        <Typography style={{ color: '#6b6b6b', marginTop: 10 }} variant='h6' align='center'>
+          Перезагрузите страницу
         </Typography>
         <Button style={{ marginTop: 50 }} onClick={handleReload}>
           Перезагрузить

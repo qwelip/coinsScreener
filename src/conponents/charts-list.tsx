@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ICoinCandlesStat } from '../types/models'
 import { Box, Typography } from '@mui/material'
-import { AppContext } from '../store/context'
+import { DataContext } from '../store/data-context'
 import ChartItem from './chart-item/chart-item'
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const ChartsList: React.FC<IProps> = ({ candlesList }) => {
-  const { isLoading } = useContext(AppContext)
+  const { isLoading } = useContext(DataContext)
 
   const styles = {
     marginTop: 140,
@@ -35,9 +35,7 @@ const ChartsList: React.FC<IProps> = ({ candlesList }) => {
         </Typography>
       ) : (
         candlesList.map((item, index) => {
-          return (
-            <ChartItem key={item.result.symbol} item={item} index={index} />
-          )
+          return <ChartItem key={item.result.symbol} item={item} index={index} />
         })
       )}
     </Box>
