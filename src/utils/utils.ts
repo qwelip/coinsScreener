@@ -25,9 +25,7 @@ export const getSortedPercentGrowCandlesStat = (
     if (candlesToCheck > item.result.list.length || candlesToCheck === 0) {
       candlesToCheck = item.result.list.length
     }
-    const firstCandleToCheck = Number(
-      item.result.list.at(candlesToCheck - 1)![4]
-    )
+    const firstCandleToCheck = Number(item.result.list.at(candlesToCheck - 1)![4])
     const secondCandleToCheck = includeFirstCandle
       ? Number(item.result.list.at(0)![4])
       : Number(item.result.list.at(1)![2])
