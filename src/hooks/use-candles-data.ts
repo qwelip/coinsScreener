@@ -21,19 +21,18 @@ export const useCandlesData = (): IAppContext => {
   const start = date.setDate(date.getDate() - startParam)
   const end = Date.now()
   const candlesDataRef = useRef<ICoinCandlesStat[] | undefined>([])
+  const limit = 200
 
   useEffect(() => {
     if (!interval) return
     setIsLoading(true)
     const reqArray = coinsList.map((coinName) =>
-      axios(getAxiosConfig(category, coinName, interval, start, end))
+      axios(getAxiosConfig(category, coinName, interval, start, end, limit))
     )
     Promise.all(reqArray)
       .then((response) => {
         const data = response.map((i) => i.data) as ICoinCandlesStat[]
-        const filtered = data.filter(
-          (i) => i.retCode === 0 && i.result.list.length > 0
-        )
+        const filtered = data.filter((i) => i.retCode === 0 && i.result.list.length > 0)
         candlesDataRef.current = filtered
       })
       .catch(() => {
