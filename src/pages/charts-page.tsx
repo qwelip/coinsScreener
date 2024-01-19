@@ -5,14 +5,18 @@ import ChartsList from '../conponents/charts-list'
 import { DataContext } from '../store/data-context'
 import Filter from '../conponents/filter'
 import { ICoinCandlesStat, Interval } from '../types/models'
-import { getIntervalTitle, getSortedPercentGrowCandlesStat } from '../utils/utils'
+import {
+  getIntervalTitle,
+  richingCandlesStatWithGrowPercent,
+  sortingCandlesStat,
+} from '../utils/utils'
 import { timeIntervals } from '../common/common-data'
 import LoadingBackdrop from '../common/loading-backdrop'
 
 const ChartsPage = () => {
   let resCandlesData: ICoinCandlesStat[] | undefined = []
-  const { isLoading, candlesData, interval, setInterval } = useContext(DataContext)
 
+  const { isLoading, candlesData, interval, setInterval } = useContext(DataContext)
   const [candlesToCheck, setCandlesToCheck] = useState(9)
   const [minProcToShow, setMinProcToShow] = useState(5)
 
@@ -27,8 +31,10 @@ const ChartsPage = () => {
     resCandlesData = candlesData
   }
   if (!isLoading && candlesData && candlesData.length > 0) {
-    const withPercent = getSortedPercentGrowCandlesStat(candlesData, candlesToCheck)
-    resCandlesData = withPercent.filter((i) => {
+    // todom обогощаю процентом каждый раз, когда меняю фильтр, обогатить один раз где то выше
+    const dataWithPercent = richingCandlesStatWithGrowPercent(candlesData, candlesToCheck)
+    const sortedData = sortingCandlesStat(dataWithPercent)
+    resCandlesData = sortedData.filter((i) => {
       if (minProcToShow === 0) {
         return true
       } else {
@@ -40,7 +46,7 @@ const ChartsPage = () => {
   useEffect(() => {
     if (!interval) return
     setCandlesToCheck(0)
-    setMinProcToShow(1)
+    setMinProcToShow(5)
   }, [interval])
 
   return (

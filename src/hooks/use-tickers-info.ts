@@ -15,7 +15,7 @@ const useTickersInfo = () => {
   const category = 'linear'
   const dateFetched = getDateTickerDataFetched()
   const timePassed = Date.now() - dateFetched
-  const isTimeToRefetch = timePassed >= MsToNormalData.oneMinute
+  const isTimeToRefetch = timePassed >= MsToNormalData.oneHour
   const rowtickersData = getStorageTickersData()
 
   const [tickersData, setTickersData] = useState<ITicker24Data | undefined>(undefined)
@@ -42,7 +42,19 @@ const useTickersInfo = () => {
             console.log('Ошибка при получении данных о монетах за 24ч')
             throw new Error('Ошибка при получении данных о монетах за 24ч')
           }
-          setTickersData(data)
+          const sortedList = data.result.list.sort((a, b) => {
+            const num1 = Number(a.turnover24h)
+            const num2 = Number(b.turnover24h)
+            return num2 - num1
+          })
+          const res = {
+            ...data,
+            result: {
+              ...data.result,
+              list: sortedList,
+            },
+          }
+          setTickersData(res)
           updateFetchedTickerTime()
         })
         .catch(() => {

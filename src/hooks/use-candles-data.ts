@@ -2,36 +2,42 @@ import { useState, useEffect, useRef } from 'react'
 import { ICoinCandlesStat, IDataContext, ITicker24Data, Interval } from '../types/models'
 import axios from 'axios'
 import { getCandlesRequestConfig } from '../api/api'
-import { getStartParam } from '../utils/utils'
-import { getStorageTickersData } from '../api/local-storage-api'
+import { filterCoinsOnValueTrade, getStartParam } from '../utils/utils'
+import { getStorageTickersData, getTraidingVolumeFilter } from '../api/local-storage-api'
 
 export const useCandlesData = (): IDataContext => {
+  const LIMIT = 200
+  const date = new Date()
+  const category = 'linear'
+  const end = Date.now()
   const rowtickersData = getStorageTickersData()
+  const filterValue = getTraidingVolumeFilter()
 
+  const candlesDataRef = useRef<ICoinCandlesStat[] | undefined>([])
   const [isLoading, setIsLoading] = useState<boolean | undefined>()
   const [interval, setInterval] = useState<Interval | undefined>()
   const [renderFlag, setRenderFlag] = useState(true)
+  const startParam = getStartParam(interval)
+  const start = date.setDate(date.getDate() - startParam)
 
   const handleIntervalChange = (val: Interval) => {
     setRenderFlag((prev) => !prev)
     setInterval(val)
   }
-  const date = new Date()
-  const category = 'linear'
-  const startParam = getStartParam(interval)
-  const start = date.setDate(date.getDate() - startParam)
-  const end = Date.now()
-  const candlesDataRef = useRef<ICoinCandlesStat[] | undefined>([])
-  const limit = 200
+
+  const setTraidingVolume = () => {
+    setRenderFlag((prev) => !prev)
+  }
 
   useEffect(() => {
     if (!interval) return
     setIsLoading(true)
     const data = JSON.parse(rowtickersData || '') as ITicker24Data
-    const coinsList = data.result.list.map((i) => i.symbol)
+    const volumeFilterder = filterCoinsOnValueTrade(data, Number(filterValue))
+    const coinsList = volumeFilterder.map((i) => i.symbol)
     const reqArray = coinsList.map((coinName) =>
       axios<ICoinCandlesStat>(
-        getCandlesRequestConfig(category, coinName, interval, start, end, limit)
+        getCandlesRequestConfig(category, coinName, interval, start, end, LIMIT)
       )
     )
     Promise.all(reqArray)
@@ -55,5 +61,6 @@ export const useCandlesData = (): IDataContext => {
     candlesData: candlesDataRef.current,
     interval,
     setInterval: handleIntervalChange,
+    setTraidingVolume,
   }
 }

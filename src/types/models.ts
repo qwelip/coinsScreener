@@ -25,7 +25,7 @@ interface ITicker24DataResult {
   list: ITickerList[]
 }
 
-interface ITickerList {
+export interface ITickerList {
   symbol: string // название монеты
   turnover24h: string // оборот
   openInterest: string // сумма открытых позиций
@@ -57,6 +57,7 @@ export interface IDataContext {
   candlesData: ICoinCandlesStat[] | undefined
   interval: Interval | undefined
   setInterval: (val: Interval) => void
+  setTraidingVolume: () => void
 }
 
 interface ICustom {

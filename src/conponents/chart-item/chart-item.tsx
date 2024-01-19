@@ -10,9 +10,10 @@ import SouthIcon from '@mui/icons-material/South'
 interface IProps {
   item: ICoinCandlesStat
   index: number
+  tradeVolume: number
 }
 
-const ChartItem: React.FC<IProps> = ({ item }) => {
+const ChartItem: React.FC<IProps> = ({ item, tradeVolume }) => {
   const URL = 'https://www.bybit.com/trade/usdt/'
   const isGrow = item.custom?.differencePercent && item.custom?.differencePercent > 0
   const { ref, inView } = useInView({
@@ -38,18 +39,24 @@ const ChartItem: React.FC<IProps> = ({ item }) => {
                 <Typography style={{ paddingLeft: 10 }}>{item.result.symbol}</Typography>
               </Button>
             </Link>
-            <Typography
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                paddingRight: 10,
-                fontWeight: 400,
-                color: isGrow ? 'green' : 'red',
-              }}
-            >
-              {isGrow ? <StraightIcon fontSize='inherit' /> : <SouthIcon fontSize='inherit' />}
-              {`${item.custom?.differencePercent}%`}
-            </Typography>
+            <Box style={{ display: 'flex', alignItems: 'center' }}>
+              <Typography
+                style={{ fontSize: 12, marginRight: 10 }}
+              >{`${tradeVolume}M $`}</Typography>
+              <Typography
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  paddingRight: 10,
+                  fontWeight: 400,
+                  color: isGrow ? 'green' : 'red',
+                  fontSize: 12,
+                }}
+              >
+                {isGrow ? <StraightIcon fontSize='inherit' /> : <SouthIcon fontSize='inherit' />}
+                {`${item.custom?.differencePercent}%`}
+              </Typography>
+            </Box>
           </Box>
           <CandleChart item={item} />
         </>

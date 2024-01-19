@@ -1,4 +1,10 @@
-import { ICoinCandlesStat, Interval, SortDirection } from '../types/models'
+import {
+  ICoinCandlesStat,
+  ITicker24Data,
+  ITickerList,
+  Interval,
+  SortDirection,
+} from '../types/models'
 
 const makeStrToNumbers = (val: string[]): number[] => {
   return val.map((i) => Number(i))
@@ -14,14 +20,14 @@ export const getOHLCdata = (val: string[][]): number[][] => {
   return numArr.map((i) => [i[0], i[1], i[2], i[3], i[4]])
 }
 
-export const getSortedPercentGrowCandlesStat = (
+export const richingCandlesStatWithGrowPercent = (
   data: ICoinCandlesStat[],
   candlesToCheck: number,
-  sortingDirection: SortDirection = SortDirection.desc,
+  // sortingDirection: SortDirection = SortDirection.desc,
   includeFirstCandle: boolean = true
 ): ICoinCandlesStat[] => {
   const filtered = data.filter((item) => item.result.list.length > 10)
-  const res = filtered.map((item) => {
+  return filtered.map((item) => {
     if (candlesToCheck > item.result.list.length || candlesToCheck === 0) {
       candlesToCheck = item.result.list.length
     }
@@ -40,12 +46,17 @@ export const getSortedPercentGrowCandlesStat = (
       },
     }
   })
+}
 
-  return res.sort((a, b) => {
+export const sortingCandlesStat = (
+  data: ICoinCandlesStat[],
+  sortingDirection: SortDirection = SortDirection.desc
+) => {
+  return data.sort((a, b) => {
     if (sortingDirection === SortDirection.desc) {
-      return b.custom.differencePercent - a.custom.differencePercent
+      return b.custom!.differencePercent - a.custom!.differencePercent
     } else {
-      return a.custom.differencePercent - b.custom.differencePercent
+      return a.custom!.differencePercent - b.custom!.differencePercent
     }
   })
 }
@@ -90,4 +101,16 @@ export function getStartParam(interval: Interval | undefined): number {
     default:
       return 2
   }
+}
+
+export const filterCoinsOnValueTrade = (
+  data: ITicker24Data,
+  tradeValume: number
+): ITickerList[] => {
+  const allCoins = data.result.list
+  const valumeToCheck = Number(`${tradeValume}000000`)
+  return allCoins.filter((i) => {
+    const volume = Math.floor(Number(i.turnover24h))
+    return volume >= valumeToCheck
+  })
 }

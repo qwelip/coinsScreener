@@ -9,13 +9,14 @@ interface IProps {
 }
 
 const DataContextComp = ({ children }: IProps) => {
-  const { isLoading, candlesData, interval, setInterval } = useCandlesData()
+  const { isLoading, candlesData, interval, setInterval, setTraidingVolume } = useCandlesData()
 
   const contextData = {
     isLoading,
     candlesData,
     interval,
     setInterval,
+    setTraidingVolume,
   }
 
   return <DataContext.Provider value={contextData}>{children}</DataContext.Provider>
