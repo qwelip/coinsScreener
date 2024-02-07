@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { ICoinCandlesStat, IDataContext, ITicker24Data, Interval } from '../types/models'
 import axios from 'axios'
 import { getCandlesRequestConfig } from '../api/api'
-import { filterCoinsOnValueTrade, getStartParam } from '../utils/utils'
+import { filterCoinsOnValueTrade, getDaysForInterval } from '../utils/utils'
 import { getStorageTickersData, getTraidingVolumeFilter } from '../api/local-storage-api'
 
 export const useCandlesData = (): IDataContext => {
@@ -17,8 +17,8 @@ export const useCandlesData = (): IDataContext => {
   const [isLoading, setIsLoading] = useState<boolean | undefined>()
   const [interval, setInterval] = useState<Interval | undefined>()
   const [renderFlag, setRenderFlag] = useState(true)
-  const startParam = getStartParam(interval)
-  const start = date.setDate(date.getDate() - startParam)
+  const days = getDaysForInterval(interval)
+  const start = date.setDate(date.getDate() - days)
 
   const handleIntervalChange = (val: Interval) => {
     setRenderFlag((prev) => !prev)

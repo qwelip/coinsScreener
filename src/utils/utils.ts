@@ -84,7 +84,7 @@ export const getIntervalTitle = (val: Interval): string => {
   }
 }
 
-export function getStartParam(interval: Interval | undefined): number {
+export function getDaysForInterval(interval: Interval | undefined): number {
   switch (interval) {
     case '5':
       return 5
@@ -97,7 +97,7 @@ export function getStartParam(interval: Interval | undefined): number {
     case '240':
       return 5
     case 'D':
-      return 5
+      return 25
     default:
       return 2
   }
