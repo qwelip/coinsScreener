@@ -2,7 +2,6 @@ import { ITicker24Data } from '../types/models'
 
 const TICKER_DATA_ID = 'ticker24Data'
 const WHEN_TICKERS_FETCHED_ID = 'whenTicker24DataFetched'
-
 const TRAIDING_VALUE_FILTER_ID = 'traidingValueFilter'
 
 export const putTickersDataToStorage = (data: ITicker24Data | undefined) => {
@@ -18,6 +17,7 @@ export const updateFetchedTickerTime = () => {
 }
 
 export const getStorageTickersData = () => localStorage.getItem(TICKER_DATA_ID)
+export const deleteStorageTickersData = () => localStorage.removeItem(TICKER_DATA_ID)
 
 export const getDateTickerDataFetched = () => {
   const data = localStorage.getItem(WHEN_TICKERS_FETCHED_ID)

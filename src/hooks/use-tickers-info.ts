@@ -4,6 +4,7 @@ import { getTickersRequestConfig } from '../api/api'
 import { ITicker24Data } from '../types/models'
 import { DataContext } from '../store/data-context'
 import {
+  deleteStorageTickersData,
   getDateTickerDataFetched,
   getStorageTickersData,
   updateFetchedTickerTime,
@@ -29,6 +30,7 @@ const useTickersInfo = () => {
       const data = JSON.parse(rowtickersData || '') as ITicker24Data
       setTickersData(data)
     } else {
+      deleteStorageTickersData()
       setIsLoading(true)
       axios<ITicker24Data>(getTickersRequestConfig(category))
         .then((response) => {
