@@ -11,7 +11,7 @@ import {
   sortingCandlesStat,
 } from '../../utils/utils'
 import { timeIntervals } from '../../common/common-data'
-import LoadingBackdrop from '../../common/loading-backdrop'
+import LoadingBackdrop from '../../conponents/loading-backdrop/loading-backdrop'
 
 const ChartsPage = () => {
   let resCandlesData: ICoinCandlesStat[] | undefined = []
