@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ChartsPage from './pages/charts-page'
+import ChartsPage from './pages/charts-page/charts-page'
 import useTickersInfo from './hooks/use-tickers-info'
 import { getStorageTickersData, putTickersDataToStorage } from './api/local-storage-api'
 import WelcomePage from './pages/welcome-page/welcome-page'

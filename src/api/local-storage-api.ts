@@ -24,7 +24,7 @@ export const getDateTickerDataFetched = () => {
   return data ? +data : Date.now()
 }
 
-export const getTraidingVolumeFilter = () => {
+export const getTraidingVolumeFilter = (): string => {
   const value = localStorage.getItem(TRAIDING_VALUE_FILTER_ID)
   if (!value) {
     localStorage.setItem(TRAIDING_VALUE_FILTER_ID, '50')

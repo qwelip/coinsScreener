@@ -1,7 +1,7 @@
 import { Paper, Box, Button, Typography, Skeleton } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import CandleChart from '../candle-chart'
+import CandleChart from '../candle-chart/candle-chart'
 import { ICoinCandlesStat } from '../../types/models'
 import { useInView } from 'react-intersection-observer'
 import StraightIcon from '@mui/icons-material/Straight'

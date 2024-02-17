@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { Button, Stack, Typography } from '@mui/material'
-import ChartsList from '../conponents/charts-list'
-import { DataContext } from '../store/data-context'
-import Filter from '../conponents/filter'
-import { ICoinCandlesStat, Interval } from '../types/models'
+import ChartsList from '../../conponents/charts-list/charts-list'
+import { DataContext } from '../../store/data-context'
+import Filter from '../../conponents/filter/filter'
+import { ICoinCandlesStat, Interval } from '../../types/models'
 import {
   getIntervalTitle,
   richingCandlesStatWithGrowPercent,
   sortingCandlesStat,
-} from '../utils/utils'
-import { timeIntervals } from '../common/common-data'
-import LoadingBackdrop from '../common/loading-backdrop'
+} from '../../utils/utils'
+import { timeIntervals } from '../../common/common-data'
+import LoadingBackdrop from '../../common/loading-backdrop'
 
 const ChartsPage = () => {
   let resCandlesData: ICoinCandlesStat[] | undefined = []

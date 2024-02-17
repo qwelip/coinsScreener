@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import { ICoinCandlesStat, ITicker24Data } from '../types/models'
+import { ICoinCandlesStat, ITicker24Data } from '../../types/models'
 import { Box, Typography } from '@mui/material'
-import { DataContext } from '../store/data-context'
-import ChartItem from './chart-item/chart-item'
-import { getStorageTickersData } from '../api/local-storage-api'
+import { DataContext } from '../../store/data-context'
+import ChartItem from '../chart-item/chart-item'
+import { getStorageTickersData } from '../../api/local-storage-api'
 
 interface IProps {
   candlesList: ICoinCandlesStat[]

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Paper, Stack, TextField } from '@mui/material'
-import { getTraidingVolumeFilter, setTraidingVolumeFilter } from '../api/local-storage-api'
-import { DataContext } from '../store/data-context'
+import { getTraidingVolumeFilter, setTraidingVolumeFilter } from '../../api/local-storage-api'
+import { DataContext } from '../../store/data-context'
 import { useDebounce } from 'use-debounce'
 interface IProps {
   candlesToCheck: number

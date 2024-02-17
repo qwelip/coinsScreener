@@ -1,7 +1,7 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
-import { ICoinCandlesStat } from '../types/models'
-import { getOHLCdata } from '../utils/utils'
+import { ICoinCandlesStat } from '../../types/models'
+import { getOHLCdata } from '../../utils/utils'
 
 interface IProps {
   item: ICoinCandlesStat
