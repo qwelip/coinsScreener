@@ -1,19 +1,16 @@
 import { useState, useEffect, useContext } from 'react'
-import axios from 'axios'
-import { getTickersRequestConfig } from '../api/api'
 import { ITicker24Data } from '../types/models'
 import { DataContext } from '../store/data-context'
 import {
   deleteStorageTickersData,
   getDateTickerDataFetched,
   getStorageTickersData,
-  updateFetchedTickerTime,
 } from '../api/local-storage-api'
 import { MsToNormalData } from '../common/common-data'
+import { getTickersData } from '../services/tickers-api'
 
 const useTickersInfo = () => {
   const { isLoading: isCandlesLoading } = useContext(DataContext)
-  const category = 'linear'
   const dateFetched = getDateTickerDataFetched()
   const timePassed = Date.now() - dateFetched
   const isTimeToRefetch = timePassed >= MsToNormalData.oneHour
@@ -32,36 +29,9 @@ const useTickersInfo = () => {
     } else {
       deleteStorageTickersData()
       setIsLoading(true)
-      axios<ITicker24Data>(getTickersRequestConfig(category))
-        .then((response) => {
-          if (response.status !== 200) {
-            console.log('Ошибка при получении данных о монетах за 24ч')
-            throw new Error('Ошибка при получении данных о монетах за 24ч')
-          }
-          const data = response.data
-
-          if (data.retMsg !== 'OK') {
-            console.log('Ошибка при получении данных о монетах за 24ч')
-            throw new Error('Ошибка при получении данных о монетах за 24ч')
-          }
-          const sortedList = data.result.list.sort((a, b) => {
-            const num1 = Number(a.turnover24h)
-            const num2 = Number(b.turnover24h)
-            return num2 - num1
-          })
-          const res = {
-            ...data,
-            result: {
-              ...data.result,
-              list: sortedList,
-            },
-          }
+      getTickersData()
+        .then((res) => {
           setTickersData(res)
-          updateFetchedTickerTime()
-        })
-        .catch(() => {
-          console.log('Ошибка при получении данных о монетах за 24ч')
-          throw new Error('Ошибка при получении данных о монетах за 24ч')
         })
         .finally(() => {
           setIsLoading(false)
