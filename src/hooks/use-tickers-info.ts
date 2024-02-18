@@ -1,11 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { ITicker24Data } from '../types/models'
 import { DataContext } from '../store/data-context'
-import {
-  deleteStorageTickersData,
-  getDateTickerDataFetched,
-  getStorageTickersData,
-} from '../api/local-storage-api'
+import { getDateTickerDataFetched, getStorageTickersData } from '../api/local-storage-api'
 import { MsToNormalData } from '../common/common-data'
 import { getTickersData } from '../services/tickers-api'
 
@@ -13,7 +9,7 @@ const useTickersInfo = () => {
   const { isLoading: isCandlesLoading } = useContext(DataContext)
   const dateFetched = getDateTickerDataFetched()
   const timePassed = Date.now() - dateFetched
-  const isTimeToRefetch = timePassed >= MsToNormalData.oneHour
+  const isTimeToRefetch = timePassed >= MsToNormalData.oneMinute
   const rowtickersData = getStorageTickersData()
 
   const [tickersData, setTickersData] = useState<ITicker24Data | undefined>(undefined)
@@ -27,7 +23,6 @@ const useTickersInfo = () => {
       const data = JSON.parse(rowtickersData || '') as ITicker24Data
       setTickersData(data)
     } else {
-      deleteStorageTickersData()
       setIsLoading(true)
       getTickersData()
         .then((res) => {
