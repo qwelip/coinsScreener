@@ -9,7 +9,7 @@ const useTickersInfo = () => {
   const { isLoading: isCandlesLoading } = useContext(DataContext)
   const dateFetched = getDateTickerDataFetched()
   const timePassed = Date.now() - dateFetched
-  const isTimeToRefetch = timePassed >= MsToNormalData.oneMinute
+  const isTimeToRefetch = timePassed >= MsToNormalData.oneHour
   const rowtickersData = getStorageTickersData()
 
   const [tickersData, setTickersData] = useState<ITicker24Data | undefined>(undefined)
